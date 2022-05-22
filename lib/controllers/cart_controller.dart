@@ -186,7 +186,7 @@ class CartController extends GetxController with BaseController {
 
     } else {
       Future.delayed(5.milliseconds, () {
-        showLoading('loading');
+        //showLoading('loading');
       });
     }
 

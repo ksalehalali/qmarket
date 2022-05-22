@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:like_button/like_button.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../../Assistants/globals.dart';
 import '../../../controllers/cart_controller.dart';
@@ -92,539 +93,502 @@ class _ProductDetailsState extends State<ProductDetails>
   Widget build(BuildContext context) {
     double buttonSize = 31;
     final screenSize = Get.size;
-    return Stack(
-      key: const Key('s2'),
-      children: [
-        Obx(() =>
-              Container(
-                color: myHexColor,
-               
-                child: SafeArea(
-                  top: true,
-                  bottom: false,
-                  child: Scaffold(
-                    backgroundColor: Colors.white,
-                    body: Container(
-                      height: screenSize.height,
-                      width: screenSize.width,
-                      child: SingleChildScrollView(
+    return Container(
+      color: Colors.white,
+      child: Stack(
+        key: const Key('s2'),
+        children: [
+          Obx(() =>
+                productController.getDetailsDone.value == true? Container(
+                  color: myHexColor,
 
-                        child: Column(key: const Key('l'),
-                         // padding: EdgeInsets.zero,
-                         // shrinkWrap: true,
-                          children: [
-                            const SizedBox(
-                              height: 4.0,
-                            ),
-                            Row(
-                              children: [
-                                InkWell(
-                                  onTap: () {
-                                    Navigator.of(context).pop();
+                  child: SafeArea(
+                    top: true,
+                    bottom: false,
+                    child: Scaffold(
+                      backgroundColor: Colors.white,
+                      body: Container(
+                        height: screenSize.height,
+                        width: screenSize.width,
+                        child: SingleChildScrollView(
 
-                                    print(
-                                        productController.latestProducts.length);
-                                  },
-                                  child: Padding(
-                                    padding:
-                                    const EdgeInsets.only(right: 12.0, left: 10),
-                                    child: SvgPicture.asset(
-                                        'assets/icons/left arrow.svg',
-                                        alignment: Alignment.center,
-                                        //color:,
-                                        height: 22,
-                                        width: 22,
-                                        semanticsLabel: 'A red up arrow'),
-                                  ),
-                                ),
-                                const Expanded(child: SearchAreaDesign()),
-                                InkWell(
-                                  onTap: () {
-                                    Navigator.of(context).push(MaterialPageRoute(
-                                        builder: (context) => const Cart()));
-                                  },
-                                  child: Padding(
-                                    padding:
-                                    const EdgeInsets.symmetric(horizontal: 5),
-                                    child: Container(
-                                      height: 40,
-                                      width: 40,
-                                      child: Stack(
-                                        alignment: Alignment.center,
-                                        children: [
-                                          AnimatedScale(
-                                            scale: scaleOfCart,
-                                            duration: duration.milliseconds,
-                                            alignment: Alignment.center,
-                                            curve: Curves.easeInOutBack,
-                                            child: SvgPicture.asset(
-                                                'assets/icons/cart-fill.svg',
-                                                alignment: Alignment.center,
-                                                //color:,
-                                                height: 29,
-                                                width: 29,
-                                                semanticsLabel: 'A red up arrow'),
-                                          ),
-                                          Positioned(
-                                              right: 0.0,
-                                              top: 0.0,
-                                              child: Container(
-                                                  height: 14,
-                                                  width: 14,
-                                                  decoration: BoxDecoration(
-                                                      borderRadius:
-                                                      BorderRadius.circular(20),
-                                                      color: const Color.fromARGB(
-                                                          255, 246, 138, 24)),
-                                                  child: Center(
-                                                    child: Obx(
-                                                          () =>
-                                                          Text(
-                                                            cartController
-                                                                .myPrCartProducts
-                                                                .length
-                                                                .toString(),
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            style: const TextStyle(
-                                                                fontSize: 10,
-                                                                color: Colors
-                                                                    .white),
-                                                          ),
-                                                    ),
-                                                  )))
-                                        ],
-                                      ),
+                          child: Column(key: const Key('l'),
+                           // padding: EdgeInsets.zero,
+                           // shrinkWrap: true,
+                            children: [
+                              const SizedBox(
+                                height: 4.0,
+                              ),
+                              Row(
+                                children: [
+                                  InkWell(
+                                    onTap: () {
+                                      Navigator.of(context).pop();
+
+                                      print(
+                                          productController.latestProducts.length);
+                                    },
+                                    child: Padding(
+                                      padding:
+                                      const EdgeInsets.only(right: 12.0, left: 10),
+                                      child: SvgPicture.asset(
+                                          'assets/icons/left arrow.svg',
+                                          alignment: Alignment.center,
+                                          //color:,
+                                          height: 22,
+                                          width: 22,
+                                          semanticsLabel: 'A red up arrow'),
                                     ),
                                   ),
-                                )
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 4,
-                            ),
-                            Stack(
-                              key:const Key('s') ,
-                              children: [
-                                productController.getDetailsDone.value == true
-                                    ? Column(
-                                  children: [
-                                    SizedBox(
-                                      height: screenSize.height * 0.4,
-                                      width: double.infinity,
-                                      child:
-                                      // InkWell(
-                                      //     onTap: (){
-                                      //       gallery();
-                                      //     },
-                                      //     child: Ink.image(image: NetworkImage("$baseURL/${productController.imagesData[0].imagesUrls[0]}",),height: 300,))
-
-                                      Obx(
-                                            () =>
-                                            Carousel(
-                                              onImageTap: (i) {
-                                                print(i);
-                                                gallery(i);
-                                              },
-                                              dotSize: 4.0,
-                                              dotSpacing: 15.0,
-                                              dotVerticalPadding: 00,
-                                              indicatorBgPadding: 14,
-                                              autoplay: false,
-                                              autoplayDuration: 7.seconds,
-                                              animationDuration: 900.milliseconds,
-                                              dotBgColor: Colors.transparent
-                                                  .withOpacity(0.1),
-                                              dotColor: Colors.white,
-                                              dotIncreasedColor: Colors.red,
-                                              dotPosition: DotPosition.bottomLeft,
-                                              images: productController
-                                                  .imagesWidget
-                                                  .value[indexListImages],
+                                  const Expanded(child: SearchAreaDesign()),
+                                  InkWell(
+                                    onTap: () {
+                                      Navigator.of(context).push(MaterialPageRoute(
+                                          builder: (context) => const Cart()));
+                                    },
+                                    child: Padding(
+                                      padding:
+                                      const EdgeInsets.symmetric(horizontal: 5),
+                                      child: Container(
+                                        height: 40,
+                                        width: 40,
+                                        child: Stack(
+                                          alignment: Alignment.center,
+                                          children: [
+                                            AnimatedScale(
+                                              scale: scaleOfCart,
+                                              duration: duration.milliseconds,
+                                              alignment: Alignment.center,
+                                              curve: Curves.easeInOutBack,
+                                              child: SvgPicture.asset(
+                                                  'assets/icons/cart-fill.svg',
+                                                  alignment: Alignment.center,
+                                                  //color:,
+                                                  height: 29,
+                                                  width: 29,
+                                                  semanticsLabel: 'A red up arrow'),
                                             ),
+                                            Positioned(
+                                                right: 0.0,
+                                                top: 0.0,
+                                                child: Container(
+                                                    height: 14,
+                                                    width: 14,
+                                                    decoration: BoxDecoration(
+                                                        borderRadius:
+                                                        BorderRadius.circular(20),
+                                                        color: const Color.fromARGB(
+                                                            255, 246, 138, 24)),
+                                                    child: Center(
+                                                      child: Obx(
+                                                            () =>
+                                                            Text(
+                                                              cartController
+                                                                  .myPrCartProducts
+                                                                  .length
+                                                                  .toString(),
+                                                              textAlign: TextAlign
+                                                                  .center,
+                                                              style: const TextStyle(
+                                                                  fontSize: 10,
+                                                                  color: Colors
+                                                                      .white),
+                                                            ),
+                                                      ),
+                                                    )))
+                                          ],
+                                        ),
                                       ),
                                     ),
-                                  ],
-                                )
-                                    : Center(
-                                    child: Container(
-                                        color: Colors.white,
-                                        height: screenSize.height * 0.4,
-                                        width: double.infinity,
-                                        child: Image.asset(
-                                          'assets/images/animation/99353-loading-circle.gif',
-                                        ))),
-                                productController.getDetailsDone.value == true
-                                    ? Positioned(
-                                    top: 8.0,
-                                    left: 10.0,
-                                    width: screenSize.width * .1 - 0,
-                                    height: screenSize.width * .1 - 0,
-                                    child: LikeButton(
-                                      size: buttonSize,
-                                      onTap: onLikeButtonTapped,
-                                      crossAxisAlignment:
-                                      CrossAxisAlignment.center,
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.center,
-                                      // padding: EdgeInsets.only(
-                                      //     left: screenSize.width * .1 - 37,
-                                      //     top: 2),
-                                      circleColor: const CircleColor(
-                                          start: Color(0xff00ddff),
-                                          end: Color(0xff0099cc)),
-                                      bubblesColor: const BubblesColor(
-                                        dotPrimaryColor: Color(0xff33b5e5),
-                                        dotSecondaryColor: Color(0xff0099cc),
-                                      ),
-                                      likeBuilder: (bool isLiked) {
-                                        return Container(
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(50),
-                                            color: Colors.white,
+                                  )
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 4,
+                              ),
+                              Obx(()=>Stack(
+                                  key:const Key('s') ,
+                                  children: [
+                                    productController.getDetailsDone.value == true
+                                        ? Column(
+                                      children: [
+                                        SizedBox(
+                                          height: screenSize.height * 0.4,
+                                          width: double.infinity,
+                                          child:
+                                          // InkWell(
+                                          //     onTap: (){
+                                          //       gallery();
+                                          //     },
+                                          //     child: Ink.image(image: NetworkImage("$baseURL/${productController.imagesData[0].imagesUrls[0]}",),height: 300,))
+
+                                          Obx(
+                                                () =>
+                                                Carousel(
+                                                  onImageTap: (i) {
+                                                    print(i);
+                                                    gallery(i);
+                                                  },
+                                                  dotSize: 4.0,
+                                                  dotSpacing: 15.0,
+                                                  dotVerticalPadding: 00,
+                                                  indicatorBgPadding: 14,
+                                                  autoplay: false,
+                                                  autoplayDuration: 7.seconds,
+                                                  animationDuration: 900.milliseconds,
+                                                  dotBgColor: Colors.transparent
+                                                      .withOpacity(0.1),
+                                                  dotColor: Colors.white,
+                                                  dotIncreasedColor: Colors.red,
+                                                  dotPosition: DotPosition.bottomLeft,
+                                                  images: productController
+                                                      .imagesWidget
+                                                      .value[indexListImages],
+                                                ),
                                           ),
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(5.0),
-                                            child: SvgPicture.asset('assets/icons/heart.svg',
+                                        ),
+                                      ],
+                                    ) : Container(),
+
+                                    productController.getDetailsDone.value == true
+                                        ? Positioned(
+                                        top: 8.0,
+                                        left: 10.0,
+                                        width: screenSize.width * .1 - 0,
+                                        height: screenSize.width * .1 - 0,
+                                        child: LikeButton(
+                                          size: buttonSize,
+                                          onTap: onLikeButtonTapped,
+                                          crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                          // padding: EdgeInsets.only(
+                                          //     left: screenSize.width * .1 - 37,
+                                          //     top: 2),
+                                          circleColor: const CircleColor(
+                                              start: Color(0xff00ddff),
+                                              end: Color(0xff0099cc)),
+                                          bubblesColor: const BubblesColor(
+                                            dotPrimaryColor: Color(0xff33b5e5),
+                                            dotSecondaryColor: Color(0xff0099cc),
+                                          ),
+                                          likeBuilder: (bool isLiked) {
+                                            return Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(50),
+                                                color: Colors.white,
+                                              ),
+                                              child: Padding(
+                                                padding: const EdgeInsets.all(5.0),
+                                                child: SvgPicture.asset('assets/icons/heart.svg',
+                                                    alignment: Alignment.center,
+                                                    color: isLiked ? myHexColor3 : Colors.grey[600],
+                                                    height: buttonSize,
+                                                    width: buttonSize,
+                                                    semanticsLabel: 'A red up arrow'),
+                                              ),
+                                            );
+                                          },
+                                        ))
+                                        : Container(),
+                                    productController.getDetailsDone.value == true
+                                        ? Positioned(
+                                      top: screenSize.height * .1 - 28,
+                                      left: 10.0,
+                                      child: Container(
+                                        padding: EdgeInsets.zero,
+                                        margin: EdgeInsets.zero,
+                                        width: screenSize.width * .1 - 5,
+                                        height: screenSize.width * .1 - 5,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                            BorderRadius.circular(100),
+                                            color: Colors.white.withOpacity(.9)),
+                                        child: LikeButton(
+                                          size: buttonSize -10,
+                                          crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                          onTap: (isLiked) async {
+                                            print('share');
+                                            return isLiked;
+                                          },
+
+                                          circleColor: const CircleColor(
+                                              start: Colors.grey, end: Colors.grey),
+                                          bubblesColor: const BubblesColor(
+                                            dotPrimaryColor: Color(0xff33b5e5),
+                                            dotSecondaryColor: Color(0xff0099cc),
+                                          ),
+                                          likeBuilder: (bool isLiked) {
+                                            return SvgPicture.asset(
+                                                'assets/icons/share3.svg',
                                                 alignment: Alignment.center,
-                                                color: isLiked ? myHexColor3 : Colors.grey[600],
+                                                color: isLiked
+                                                    ? myHexColor3
+                                                    : Colors.grey,
                                                 height: buttonSize,
                                                 width: buttonSize,
-                                                semanticsLabel: 'A red up arrow'),
-                                          ),
-                                        );
-                                      },
-                                    ))
-                                    : Container(),
-                                productController.getDetailsDone.value == true
-                                    ? Positioned(
-                                  top: screenSize.height * .1 - 28,
-                                  left: 10.0,
-                                  child: Container(
-                                    padding: EdgeInsets.zero,
-                                    margin: EdgeInsets.zero,
-                                    width: screenSize.width * .1 - 5,
-                                    height: screenSize.width * .1 - 5,
-                                    decoration: BoxDecoration(
-                                        borderRadius:
-                                        BorderRadius.circular(100),
-                                        color: Colors.white.withOpacity(.9)),
-                                    child: LikeButton(
-                                      size: buttonSize -10,
-                                      crossAxisAlignment:
-                                      CrossAxisAlignment.center,
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.center,
-                                      onTap: (isLiked) async {
-                                        print('share');
-                                        return isLiked;
-                                      },
-
-                                      circleColor: const CircleColor(
-                                          start: Colors.grey, end: Colors.grey),
-                                      bubblesColor: const BubblesColor(
-                                        dotPrimaryColor: Color(0xff33b5e5),
-                                        dotSecondaryColor: Color(0xff0099cc),
-                                      ),
-                                      likeBuilder: (bool isLiked) {
-                                        return SvgPicture.asset(
-                                            'assets/icons/share3.svg',
-                                            alignment: Alignment.center,
-                                            color: isLiked
-                                                ? myHexColor3
-                                                : Colors.grey,
-                                            height: buttonSize,
-                                            width: buttonSize,
-                                            semanticsLabel: 'A red up arrow');
-                                      },
-                                    ),
-                                  ),
-                                )
-                                    : Container()
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 8.0,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 12.0),
-                              child: Obx(()=>Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    const SizedBox(
-                                      height: 12.0,
-                                    ),
-                                    Text(
-                                      '${productController.productDetails.providerName}',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 16,
-                                          color: myHexColor1),
-                                    ),
-                                    SizedBox(
-                                      height: screenSize.height * 0.1 - 76,
-                                    ),
-                                    Text(
-                                      productController.productDetails.en_name!.toUpperCase(),
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.w700,
-                                          fontSize: 16,
-                                          color: Colors.black),
-                                    ),
-                                    SizedBox(
-                                      height: screenSize.height * 0.1 - 76,
-                                    ),
-                                    Text(
-                                      '${productController.productDetails.price! -
-                                          productController.offerFromPrice
-                                              .value} QAR',
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.w700,
-                                          fontSize: 16,
-                                          color: Colors.black),
-                                    ),
-                                    SizedBox(
-                                      height: screenSize.height * 0.1 - 60,
-                                    ),
-                                    const Text(
-                                      'Size',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w700,
-                                          fontSize: 14,
-                                          color: Colors.black),
-                                    ),
-                                    _buildSizesOptions(screenSize),
-                                    const SizedBox(
-                                      height: 22.0,
-                                    ),
-                                    const Text(
-                                      'Colors',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w700,
-                                          fontSize: 14,
-                                          color: Colors.black),
-                                    ),
-                                    _buildColorsOptions(screenSize),
-                                    const SizedBox(
-                                      height: 22.0,
-                                    ),
-                                    Container(
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(6),
-                                          border: Border.all(
-                                            width: 1,
-                                            color: Colors.grey[500]!,
-                                          )),
-                                      width: screenSize.width,
-                                      height: screenSize.height * 0.1 - 30,
-                                      child: Row(
-                                        children: [
-                                          const SizedBox(
-                                            width: 10.0,
-                                          ),
-                                          SvgPicture.asset(
-                                              'assets/icons/shipping.svg',
-                                              color: Colors.grey[600],
-                                              height: 18.00,
-                                              width: 18.0,
-                                              semanticsLabel: 'A red up arrow'),
-                                          const SizedBox(
-                                            width: 10.0,
-                                          ),
-                                          const Text('Delivery time :'),
-                                          const Spacer(),
-                                          const Text(' Jan 28 - Jan 30'),
-                                          SizedBox(
-                                            width: screenSize.width * 0.1 - 12,
-                                          )
-                                        ],
+                                                semanticsLabel: 'A red up arrow');
+                                          },
+                                        ),
                                       ),
                                     )
+                                        : Container()
                                   ],
                                 ),
                               ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 14.0),
-                              child: Container(
-                                margin: const EdgeInsets.symmetric(
-                                    horizontal: 0, vertical: 0),
-                                decoration: BoxDecoration(
-                                    color: Colors.grey[300],
-                                    borderRadius: BorderRadius.circular(3)),
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 12),
-                                  child: Container(
-                                    color: Colors.white,
+                              const SizedBox(
+                                height: 8.0,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 12.0),
+                                child: Obx(()=>Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      const SizedBox(
+                                        height: 12.0,
+                                      ),
+                                      Text(
+                                        '${productController.productDetails.providerName}',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 16,
+                                            color: myHexColor1),
+                                      ),
+                                      SizedBox(
+                                        height: screenSize.height * 0.1 - 76,
+                                      ),
+                                      Text(
+                                        productController.productDetails.en_name!.toUpperCase(),
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.w700,
+                                            fontSize: 16,
+                                            color: Colors.black),
+                                      ),
+                                      SizedBox(
+                                        height: screenSize.height * 0.1 - 76,
+                                      ),
+                                      Text(
+                                        '${productController.productDetails.price! -
+                                            productController.offerFromPrice
+                                                .value} QAR',
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.w700,
+                                            fontSize: 16,
+                                            color: Colors.black),
+                                      ),
+                                      SizedBox(
+                                        height: screenSize.height * 0.1 - 60,
+                                      ),
+                                      const Text(
+                                        'Size',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w700,
+                                            fontSize: 14,
+                                            color: Colors.black),
+                                      ),
+                                      _buildSizesOptions(screenSize),
+                                      const SizedBox(
+                                        height: 22.0,
+                                      ),
+                                      const Text(
+                                        'Colors',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w700,
+                                            fontSize: 14,
+                                            color: Colors.black),
+                                      ),
+                                      _buildColorsOptions(screenSize),
+                                      const SizedBox(
+                                        height: 22.0,
+                                      ),
+                                      Container(
+                                        decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(6),
+                                            border: Border.all(
+                                              width: 1,
+                                              color: Colors.grey[500]!,
+                                            )),
+                                        width: screenSize.width,
+                                        height: screenSize.height * 0.1 - 30,
+                                        child: Row(
+                                          children: [
+                                            const SizedBox(
+                                              width: 10.0,
+                                            ),
+                                            SvgPicture.asset(
+                                                'assets/icons/shipping.svg',
+                                                color: Colors.grey[600],
+                                                height: 18.00,
+                                                width: 18.0,
+                                                semanticsLabel: 'A red up arrow'),
+                                            const SizedBox(
+                                              width: 10.0,
+                                            ),
+                                            const Text('Delivery time :'),
+                                            const Spacer(),
+                                            const Text(' Jan 28 - Jan 30'),
+                                            SizedBox(
+                                              width: screenSize.width * 0.1 - 12,
+                                            )
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 14.0),
+                                child: Container(
+                                  margin: const EdgeInsets.symmetric(
+                                      horizontal: 0, vertical: 0),
+                                  decoration: BoxDecoration(
+                                      color: Colors.grey[300],
+                                      borderRadius: BorderRadius.circular(3)),
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 12),
+                                    child: Container(
+                                      color: Colors.white,
+                                      child: Column(
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical: 18.0, horizontal: 12),
+                                            child: Row(
+                                              children: [
+                                                SvgPicture.asset(
+                                                    'assets/images/svg/9593997931634472866.svg',
+                                                    // color: Colors.black,
+                                                    height: 21.00,
+                                                    width: 21.0,
+                                                    semanticsLabel: 'A red up arrow'),
+                                                const SizedBox(
+                                                  width: 5.0,
+                                                ),
+                                                const Text(
+                                                  'Seller',
+                                                  style: TextStyle(
+                                                      fontWeight: FontWeight.w600,
+                                                      fontSize: 15),
+                                                ),
+                                                const SizedBox(
+                                                  width: 8.0,
+                                                ),
+                                                Text(
+                                                  'QR Market',
+                                                  style: TextStyle(
+                                                      fontWeight: FontWeight.w600,
+                                                      fontSize: 16,
+                                                      color: myHexColor3),
+                                                ),
+                                                const Spacer(),
+                                                const Icon(
+                                                    Icons.keyboard_arrow_right)
+                                              ],
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  InkWell(
+                                    onTap: () {
+                                      setState(() {
+                                        _color = myHexColor3;
+                                        _color2 = Colors.grey[700];
+                                        showOver = true;
+                                        showSpec = false;
+                                      });
+                                    },
                                     child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              vertical: 18.0, horizontal: 12),
-                                          child: Row(
-                                            children: [
-                                              SvgPicture.asset(
-                                                  'assets/images/svg/9593997931634472866.svg',
-                                                  // color: Colors.black,
-                                                  height: 21.00,
-                                                  width: 21.0,
-                                                  semanticsLabel: 'A red up arrow'),
-                                              const SizedBox(
-                                                width: 5.0,
-                                              ),
-                                              const Text(
-                                                'Seller',
+                                        AnimatedContainer(
+                                            duration: 11.seconds,
+                                            curve: Curves.easeIn,
+                                            child: Text('Overview',
                                                 style: TextStyle(
-                                                    fontWeight: FontWeight.w600,
-                                                    fontSize: 15),
-                                              ),
-                                              const SizedBox(
-                                                width: 8.0,
-                                              ),
-                                              Text(
-                                                'QR Market',
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.w600,
-                                                    fontSize: 16,
-                                                    color: myHexColor3),
-                                              ),
-                                              const Spacer(),
-                                              const Icon(
-                                                  Icons.keyboard_arrow_right)
-                                            ],
-                                          ),
+                                                    color: _color,
+                                                    fontWeight: FontWeight.w500))),
+                                        const SizedBox(
+                                          height: 10.0,
+                                        ),
+                                        AnimatedContainer(
+                                          curve: Curves.easeInOut,
+                                          width: screenSize.width / 2,
+                                          height: 2.5,
+                                          color: _color,
+                                          duration: 900.milliseconds,
                                         )
                                       ],
                                     ),
                                   ),
-                                ),
-                              ),
-                            ),
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                InkWell(
-                                  onTap: () {
-                                    setState(() {
-                                      _color = myHexColor3;
-                                      _color2 = Colors.grey[700];
-                                      showOver = true;
-                                      showSpec = false;
-                                    });
-                                  },
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      AnimatedContainer(
-                                          duration: 11.seconds,
-                                          curve: Curves.easeIn,
-                                          child: Text('Overview',
+                                  InkWell(
+                                    onTap: () {
+                                      setState(() {
+                                        _color2 = myHexColor3;
+                                        _color = Colors.grey[700];
+                                        showOver = false;
+                                        showSpec = true;
+                                      });
+                                    },
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        AnimatedContainer(
+                                            curve: Curves.easeIn,
+                                            duration: 14.seconds,
+                                            child: Text(
+                                              'Specifications',
                                               style: TextStyle(
-                                                  color: _color,
-                                                  fontWeight: FontWeight.w500))),
-                                      const SizedBox(
-                                        height: 10.0,
-                                      ),
-                                      AnimatedContainer(
-                                        curve: Curves.easeInOut,
-                                        width: screenSize.width / 2,
-                                        height: 2.5,
-                                        color: _color,
-                                        duration: 900.milliseconds,
-                                      )
-                                    ],
+                                                  color: _color2,
+                                                  fontWeight: FontWeight.w500),
+                                            )),
+                                        const SizedBox(
+                                          height: 10.0,
+                                        ),
+                                        AnimatedContainer(
+                                          curve: Curves.easeInOut,
+                                          width: screenSize.width / 2,
+                                          height: 2.5,
+                                          color: _color2,
+                                          duration: 900.milliseconds,
+                                        )
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
+                              showSpec
+                                  ? Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: 14.0, horizontal: 12),
+                                    child: Text(
+                                      'Specifications',
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w800),
+                                    ),
                                   ),
-                                ),
-                                InkWell(
-                                  onTap: () {
-                                    setState(() {
-                                      _color2 = myHexColor3;
-                                      _color = Colors.grey[700];
-                                      showOver = false;
-                                      showSpec = true;
-                                    });
-                                  },
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      AnimatedContainer(
-                                          curve: Curves.easeIn,
-                                          duration: 14.seconds,
-                                          child: Text(
-                                            'Specifications',
-                                            style: TextStyle(
-                                                color: _color2,
-                                                fontWeight: FontWeight.w500),
-                                          )),
-                                      const SizedBox(
-                                        height: 10.0,
-                                      ),
-                                      AnimatedContainer(
-                                        curve: Curves.easeInOut,
-                                        width: screenSize.width / 2,
-                                        height: 2.5,
-                                        color: _color2,
-                                        duration: 900.milliseconds,
-                                      )
-                                    ],
-                                  ),
-                                )
-                              ],
-                            ),
-                            showSpec
-                                ? Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      vertical: 14.0, horizontal: 12),
-                                  child: Text(
-                                    'Specifications',
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w800),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 12.0, horizontal: 12),
-                                  child: Row(
-                                    crossAxisAlignment:
-                                    CrossAxisAlignment.start,
-                                    children: [
-                                      SizedBox(
-                                          child: Text(
-                                            'Specifications',
-                                            style: TextStyle(
-                                                color: Colors.grey[900],
-                                                fontSize: 11,
-                                                fontWeight: FontWeight.w600),
-                                          ),
-                                          width: screenSize.width * .5 - 30),
-                                      SizedBox(
-                                          width: screenSize.width * 0.5,
-                                          child: Text(
-                                            'Specifications Specifications Specifications Specifications Specifications',
-                                            maxLines: 3,
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.w500,
-                                              color: Colors.grey[800],
-                                              fontSize: 11,
-                                            ),
-                                          )),
-                                      const Spacer()
-                                    ],
-                                  ),
-                                ),
-                                Container(
-                                  color: myHexColor3.withOpacity(0.4),
-                                  child: Padding(
+                                  Padding(
                                     padding: const EdgeInsets.symmetric(
                                         vertical: 12.0, horizontal: 12),
                                     child: Row(
@@ -633,7 +597,7 @@ class _ProductDetailsState extends State<ProductDetails>
                                       children: [
                                         SizedBox(
                                             child: Text(
-                                              'Color name',
+                                              'Specifications',
                                               style: TextStyle(
                                                   color: Colors.grey[900],
                                                   fontSize: 11,
@@ -643,52 +607,53 @@ class _ProductDetailsState extends State<ProductDetails>
                                         SizedBox(
                                             width: screenSize.width * 0.5,
                                             child: Text(
-                                              productController.productDetails
-                                                  .colorsData![0]['color'],
+                                              'Specifications Specifications Specifications Specifications Specifications',
                                               maxLines: 3,
                                               style: TextStyle(
-                                                  color: Colors.grey[800],
-                                                  fontSize: 11,
-                                                  fontWeight: FontWeight.w500),
+                                                fontWeight: FontWeight.w500,
+                                                color: Colors.grey[800],
+                                                fontSize: 11,
+                                              ),
                                             )),
                                         const Spacer()
                                       ],
                                     ),
                                   ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 12.0, horizontal: 12),
-                                  child: Row(
-                                    crossAxisAlignment:
-                                    CrossAxisAlignment.start,
-                                    children: [
-                                      SizedBox(
-                                          width: screenSize.width * .5 - 30,
-                                          child: Text(
-                                            'Department',
-                                            style: TextStyle(
-                                                color: Colors.grey[900],
-                                                fontSize: 11,
-                                                fontWeight: FontWeight.w600),
-                                          )),
-                                      Text(
-                                        productController
-                                            .productDetails.categoryNameEN!,
-                                        maxLines: 3,
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.w500,
-                                          color: Colors.grey[800],
-                                          fontSize: 11,
-                                        ),
+                                  Container(
+                                    color: myHexColor3.withOpacity(0.4),
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 12.0, horizontal: 12),
+                                      child: Row(
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                        children: [
+                                          SizedBox(
+                                              child: Text(
+                                                'Color name',
+                                                style: TextStyle(
+                                                    color: Colors.grey[900],
+                                                    fontSize: 11,
+                                                    fontWeight: FontWeight.w600),
+                                              ),
+                                              width: screenSize.width * .5 - 30),
+                                          SizedBox(
+                                              width: screenSize.width * 0.5,
+                                              child: Text(
+                                                productController.productDetails
+                                                    .colorsData![0]['color'],
+                                                maxLines: 3,
+                                                style: TextStyle(
+                                                    color: Colors.grey[800],
+                                                    fontSize: 11,
+                                                    fontWeight: FontWeight.w500),
+                                              )),
+                                          const Spacer()
+                                        ],
                                       ),
-                                      const Spacer()
-                                    ],
+                                    ),
                                   ),
-                                ),
-                                Container(
-                                  color: myHexColor3.withOpacity(0.4),
-                                  child: Padding(
+                                  Padding(
                                     padding: const EdgeInsets.symmetric(
                                         vertical: 12.0, horizontal: 12),
                                     child: Row(
@@ -698,129 +663,7 @@ class _ProductDetailsState extends State<ProductDetails>
                                         SizedBox(
                                             width: screenSize.width * .5 - 30,
                                             child: Text(
-                                              'Offer',
-                                              style: TextStyle(
-                                                  color: Colors.grey[900],
-                                                  fontSize: 11,
-                                                  fontWeight: FontWeight.w600),
-                                            )),
-                                        Text(
-                                          '${productController.productDetails.offer.toString()} %',
-                                          maxLines: 3,
-                                          style: TextStyle(
-                                              color: Colors.grey[800],
-                                              fontSize: 11,
-                                              fontWeight: FontWeight.w500),
-                                        ),
-                                        const Spacer()
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 12.0, horizontal: 12),
-                                  child: Row(
-                                    crossAxisAlignment:
-                                    CrossAxisAlignment.start,
-                                    children: [
-                                      SizedBox(
-                                          width: screenSize.width * .5 - 30,
-                                          child: Text(
-                                            'Material',
-                                            style: TextStyle(
-                                                color: Colors.grey[900],
-                                                fontSize: 11,
-                                                fontWeight: FontWeight.w600),
-                                          )),
-                                      Text(
-                                        'any',
-                                        maxLines: 3,
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.w500,
-                                          color: Colors.grey[800],
-                                          fontSize: 11,
-                                        ),
-                                      ),
-                                      const Spacer()
-                                    ],
-                                  ),
-                                ),
-                                Container(
-                                  color: myHexColor3.withOpacity(0.4),
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 12.0, horizontal: 12),
-                                    child: Row(
-                                      crossAxisAlignment:
-                                      CrossAxisAlignment.start,
-                                      children: [
-                                        SizedBox(
-                                            width: screenSize.width * .5 - 30,
-                                            child: Text(
-                                              'Material Composition',
-                                              style: TextStyle(
-                                                  color: Colors.grey[900],
-                                                  fontSize: 11,
-                                                  fontWeight: FontWeight.w600),
-                                            )),
-                                        Text(
-                                          '100% any',
-                                          overflow: TextOverflow.ellipsis,
-                                          maxLines: 3,
-                                          style: TextStyle(
-                                              color: Colors.grey[800],
-                                              fontSize: 11,
-                                              fontWeight: FontWeight.w500),
-                                        ),
-                                        const Spacer()
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 12.0, horizontal: 12),
-                                  child: Row(
-                                    crossAxisAlignment:
-                                    CrossAxisAlignment.start,
-                                    children: [
-                                      SizedBox(
-                                          width: screenSize.width * .5 - 30,
-                                          child: Text(
-                                            'Model Number',
-                                            style: TextStyle(
-                                                color: Colors.grey[900],
-                                                fontSize: 11,
-                                                fontWeight: FontWeight.w600),
-                                          )),
-                                      Text(
-                                        productController
-                                            .productDetails.modelName!,
-                                        maxLines: 3,
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.w500,
-                                          color: Colors.grey[800],
-                                          fontSize: 11,
-                                        ),
-                                      ),
-                                      const Spacer()
-                                    ],
-                                  ),
-                                ),
-                                Container(
-                                  color: myHexColor3.withOpacity(0.4),
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 12.0, horizontal: 12),
-                                    child: Row(
-                                      crossAxisAlignment:
-                                      CrossAxisAlignment.center,
-                                      children: [
-                                        SizedBox(
-                                            width: screenSize.width * .5 - 30,
-                                            child: Text(
-                                              'Merchant',
+                                              'Department',
                                               style: TextStyle(
                                                   color: Colors.grey[900],
                                                   fontSize: 11,
@@ -828,111 +671,289 @@ class _ProductDetailsState extends State<ProductDetails>
                                             )),
                                         Text(
                                           productController
-                                              .productDetails.providerName!,
+                                              .productDetails.categoryNameEN!,
                                           maxLines: 3,
                                           style: TextStyle(
-                                              color: Colors.grey[800],
-                                              fontSize: 11,
-                                              fontWeight: FontWeight.w500),
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.grey[800],
+                                            fontSize: 11,
+                                          ),
                                         ),
                                         const Spacer()
                                       ],
                                     ),
                                   ),
-                                ),
-                              ],
-                            )
-                                : Align(
-                              alignment: Alignment.centerLeft,
-                                  child: Container(
-                              child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children:  [
-                                    const Padding(
-                                      padding: EdgeInsets.only(
-                                          right: 12.0,
-                                          left: 12.0,
-                                          top: 22.0,
-                                          bottom: 10),
-                                      child: Text(
-                                        'Highlights',
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w800),
-                                      ),
-                                    ),
-                                    Padding(
+                                  Container(
+                                    color: myHexColor3.withOpacity(0.4),
+                                    child: Padding(
                                       padding: const EdgeInsets.symmetric(
-                                          vertical: 1.0, horizontal: 12),
-                                      child: Text(
-                                        productController.productDetails.desc_EN.toString(),
-                                        maxLines: 6,
-                                        style: const TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w300),
+                                          vertical: 12.0, horizontal: 12),
+                                      child: Row(
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                        children: [
+                                          SizedBox(
+                                              width: screenSize.width * .5 - 30,
+                                              child: Text(
+                                                'Offer',
+                                                style: TextStyle(
+                                                    color: Colors.grey[900],
+                                                    fontSize: 11,
+                                                    fontWeight: FontWeight.w600),
+                                              )),
+                                          Text(
+                                            '${productController.productDetails.offer.toString()} %',
+                                            maxLines: 3,
+                                            style: TextStyle(
+                                                color: Colors.grey[800],
+                                                fontSize: 11,
+                                                fontWeight: FontWeight.w500),
+                                          ),
+                                          const Spacer()
+                                        ],
                                       ),
                                     ),
-                                    const SizedBox(
-                                      height: 150,
-                                    )
-                                  ],
-                              ),
-                            ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 12.0, horizontal: 12),
+                                    child: Row(
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                      children: [
+                                        SizedBox(
+                                            width: screenSize.width * .5 - 30,
+                                            child: Text(
+                                              'Material',
+                                              style: TextStyle(
+                                                  color: Colors.grey[900],
+                                                  fontSize: 11,
+                                                  fontWeight: FontWeight.w600),
+                                            )),
+                                        Text(
+                                          'any',
+                                          maxLines: 3,
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.grey[800],
+                                            fontSize: 11,
+                                          ),
+                                        ),
+                                        const Spacer()
+                                      ],
+                                    ),
+                                  ),
+                                  Container(
+                                    color: myHexColor3.withOpacity(0.4),
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 12.0, horizontal: 12),
+                                      child: Row(
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                        children: [
+                                          SizedBox(
+                                              width: screenSize.width * .5 - 30,
+                                              child: Text(
+                                                'Material Composition',
+                                                style: TextStyle(
+                                                    color: Colors.grey[900],
+                                                    fontSize: 11,
+                                                    fontWeight: FontWeight.w600),
+                                              )),
+                                          Text(
+                                            '100% any',
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 3,
+                                            style: TextStyle(
+                                                color: Colors.grey[800],
+                                                fontSize: 11,
+                                                fontWeight: FontWeight.w500),
+                                          ),
+                                          const Spacer()
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 12.0, horizontal: 12),
+                                    child: Row(
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                      children: [
+                                        SizedBox(
+                                            width: screenSize.width * .5 - 30,
+                                            child: Text(
+                                              'Model Number',
+                                              style: TextStyle(
+                                                  color: Colors.grey[900],
+                                                  fontSize: 11,
+                                                  fontWeight: FontWeight.w600),
+                                            )),
+                                        Text(
+                                          productController
+                                              .productDetails.modelName!,
+                                          maxLines: 3,
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.grey[800],
+                                            fontSize: 11,
+                                          ),
+                                        ),
+                                        const Spacer()
+                                      ],
+                                    ),
+                                  ),
+                                  Container(
+                                    color: myHexColor3.withOpacity(0.4),
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 12.0, horizontal: 12),
+                                      child: Row(
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                        children: [
+                                          SizedBox(
+                                              width: screenSize.width * .5 - 30,
+                                              child: Text(
+                                                'Merchant',
+                                                style: TextStyle(
+                                                    color: Colors.grey[900],
+                                                    fontSize: 11,
+                                                    fontWeight: FontWeight.w600),
+                                              )),
+                                          Text(
+                                            productController
+                                                .productDetails.providerName!,
+                                            maxLines: 3,
+                                            style: TextStyle(
+                                                color: Colors.grey[800],
+                                                fontSize: 11,
+                                                fontWeight: FontWeight.w500),
+                                          ),
+                                          const Spacer()
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              )
+                                  : Align(
+                                alignment: Alignment.centerLeft,
+                                    child: Container(
+                                child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children:  [
+                                      const Padding(
+                                        padding: EdgeInsets.only(
+                                            right: 12.0,
+                                            left: 12.0,
+                                            top: 22.0,
+                                            bottom: 10),
+                                        child: Text(
+                                          'Highlights',
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w800),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 1.0, horizontal: 12),
+                                        child: Text(
+                                          productController.productDetails.desc_EN.toString(),
+                                          maxLines: 6,
+                                          style: const TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w300),
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 150,
+                                      )
+                                    ],
                                 ),
-                            const SizedBox(
-                              height: 40,
-                            ),
-                            Align(
-                              alignment: Alignment.centerLeft,
-                              child: Padding(
-                                padding: const EdgeInsets.only(
-                                    right: 12.0, left: 12.0, top: 22.0, bottom: 10),
-                                child: Text(
-                                  'More from ${productController.product.value
-                                      .brand}',
-                                  style: const TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w800),
+                              ),
+                                  ),
+                              const SizedBox(
+                                height: 40,
+                              ),
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      right: 12.0, left: 12.0, top: 22.0, bottom: 10),
+                                  child: Text(
+                                    'More from ${productController.product.value
+                                        .brand}',
+                                    style: const TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w800),
+                                  ),
                                 ),
                               ),
-                            ),
-                            buildHorizontalListOfProducts(true),
-                            const SizedBox(
-                              height: 60,
-                            ),
-                          ],
+                              buildHorizontalListOfProducts(true),
+                              const SizedBox(
+                                height: 60,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
+                      bottomSheet: productController.getDetailsDone.value == true
+                          ? buildAddCartPrice(
+                          productController.productDetails.price!,
+                          productController.productDetails.offer,indexListImages)
+                          : Container(),
                     ),
-                    bottomSheet: productController.getDetailsDone.value == true
-                        ? buildAddCartPrice(
-                        productController.productDetails.price!,
-                        productController.productDetails.offer,indexListImages)
-                        : Container(),
                   ),
-                ),
-              ),
-        ),
+                ):_buildShimmerLoadingData(),
+          ),
 
-        Container(
-          margin: EdgeInsets.only(top: screenSize.height *0.1 -54),
-          width: MediaQuery
-              .of(context)
-              .size
-              .width,
-          height: MediaQuery
-              .of(context)
-              .size
-              .height -50,
-          child: flyingcart == null ? Container() : flyingcart,
-        )
+          Container(
+            margin: EdgeInsets.only(top: screenSize.height *0.1 -54),
+            width: MediaQuery
+                .of(context)
+                .size
+                .width,
+            height: MediaQuery
+                .of(context)
+                .size
+                .height -50,
+            child: flyingcart == null ? Container() : flyingcart,
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _buildShimmerLoadingData(){
+    return  Column(
+      children: [
+        SizedBox(height: screenSize.height *0.1/7,),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 24.0,horizontal: 12),
+          child: Shimmer.fromColors(
+            baseColor: Colors.grey[400]!,
+            highlightColor: Colors.grey[300]!,
+            child: Container(
+              height: screenSize.height * 0.4-10,
+              width: screenSize.width,
+              decoration: BoxDecoration(
+                  color: Colors.grey,
+                  borderRadius: BorderRadius.circular(22)),
+            ),
+          ),
+        ),
       ],
     );
   }
+
 
   Widget _buildSizesOptions(size) {
     return SizedBox(

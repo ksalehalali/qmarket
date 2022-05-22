@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
+import 'package:shimmer/shimmer.dart';
 import '../Assistants/globals.dart';
 import '../Assistants/request-assistant.dart';
 import '../models/placePredictions.dart';
@@ -25,6 +26,8 @@ class ProductsController extends GetxController with BaseController{
   var favProducts = [].obs;
 
   var gotProductsByCat = false.obs;
+  var gotProductDetails = false.obs;
+
   var product = ProductModel().obs;
   var opacity = 0.0.obs;
 
@@ -293,7 +296,7 @@ class ProductsController extends GetxController with BaseController{
   }
 
   Future getOneProductDetails(String id) async {
-    getDetailsDone.value = false;
+   gotProductDetails.value =false;
     print('get prod id :: $id');
     var headers = {
       'Authorization': 'bearer ${user.accessToken}',
@@ -365,7 +368,6 @@ class ProductsController extends GetxController with BaseController{
       colors = productData['size'][0]['color'];
       print('colors productData ${productDetails.colorsData}');
       await addImagesData();
-      hideLoading();
       createImages(2);
       print(product);
 
@@ -394,7 +396,21 @@ class ProductsController extends GetxController with BaseController{
                     maxHeightDiskCache: 110,
                     fit: BoxFit.fill,
                     placeholder: (context, url) =>
-                        const Center(child: CircularProgressIndicator()),
+                         Center(child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 4.0),
+                          child: Shimmer.fromColors(
+                            baseColor: Colors.grey[400]!,
+                            highlightColor: Colors.grey[300]!,
+                            child: Container(
+                              height: screenSize.height * 0.2 + 20,
+                              width: screenSize.width * 0.4,
+                              decoration: BoxDecoration(
+
+                                  borderRadius: BorderRadius.circular(3)),
+                              //child: Image.asset('assets/images/no-image.jpeg'),
+                            ),
+                          ),
+                        )),
                     errorWidget: (context, url, error) => Container(
                       color: Colors.black,
                       child: const Icon(
@@ -407,9 +423,10 @@ class ProductsController extends GetxController with BaseController{
           );
         }
       }
-      getDetailsDone.value = true;
+      getDetailsDone.value = false;
     }
-    getDetailsDone.value = true;
+    gotProductDetails.value =false;
+    getDetailsDone.value = false;
     update();
   }
 
