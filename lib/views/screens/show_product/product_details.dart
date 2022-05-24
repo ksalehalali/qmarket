@@ -60,8 +60,7 @@ class _ProductDetailsState extends State<ProductDetails>
   bool showSpec = false;
   List sizes = ['S', 'M', 'L', 'XL', 'XXL'];
   var urlImages = [];
-  var currentSize;
-  var currentColor;
+
   Widget? flyingcart = null;
 
   @override
@@ -391,17 +390,20 @@ class _ProductDetailsState extends State<ProductDetails>
                                             fontSize: 14,
                                             color: Colors.black),
                                       ),
+                                      const SizedBox(height: 2,),
+
                                       _buildSizesOptions(screenSize),
                                       const SizedBox(
                                         height: 22.0,
                                       ),
                                       const Text(
-                                        'Colors',
+                                        'Color',
                                         style: TextStyle(
                                             fontWeight: FontWeight.w700,
                                             fontSize: 14,
                                             color: Colors.black),
                                       ),
+                                      const SizedBox(height: 2,),
                                       _buildColorsOptions(screenSize),
                                       const SizedBox(
                                         height: 22.0,
@@ -934,6 +936,7 @@ class _ProductDetailsState extends State<ProductDetails>
 
   Widget _buildShimmerLoadingData(){
     return  Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(height: screenSize.height *0.1/7,),
         Padding(
@@ -946,7 +949,63 @@ class _ProductDetailsState extends State<ProductDetails>
               width: screenSize.width,
               decoration: BoxDecoration(
                   color: Colors.grey,
-                  borderRadius: BorderRadius.circular(22)),
+                  borderRadius: BorderRadius.circular(12)),
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 5.0,horizontal: 12),
+          child: Shimmer.fromColors(
+            baseColor: Colors.grey[400]!,
+            highlightColor: Colors.grey[300]!,
+            child: Container(
+              height: screenSize.height * 0.1-60,
+              width: screenSize.width *0.4,
+              decoration: BoxDecoration(
+                  color: Colors.grey,
+                  borderRadius: BorderRadius.circular(6)),
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 22.0,right: 12,left: 12),
+          child: Shimmer.fromColors(
+            baseColor: Colors.grey[400]!,
+            highlightColor: Colors.grey[300]!,
+            child: Container(
+              height: screenSize.height * 0.1-62,
+              width: screenSize.width,
+              decoration: BoxDecoration(
+                  color: Colors.grey,
+                  borderRadius: BorderRadius.circular(4)),
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 12.0,horizontal: 12),
+          child: Shimmer.fromColors(
+            baseColor: Colors.grey[400]!,
+            highlightColor: Colors.grey[300]!,
+            child: Container(
+              height: screenSize.height * 0.1-62,
+              width: screenSize.width,
+              decoration: BoxDecoration(
+                  color: Colors.grey,
+                  borderRadius: BorderRadius.circular(4)),
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 0.0,horizontal: 12),
+          child: Shimmer.fromColors(
+            baseColor: Colors.grey[400]!,
+            highlightColor: Colors.grey[300]!,
+            child: Container(
+              height: screenSize.height * 0.1-62,
+              width: screenSize.width,
+              decoration: BoxDecoration(
+                  color: Colors.grey,
+                  borderRadius: BorderRadius.circular(4)),
             ),
           ),
         ),
@@ -958,7 +1017,7 @@ class _ProductDetailsState extends State<ProductDetails>
   Widget _buildSizesOptions(size) {
     return SizedBox(
       width: size.width,
-      height: 38,
+      height: 36,
       child: CustomScrollView(
         scrollDirection: Axis.horizontal,
         slivers: [
@@ -970,9 +1029,11 @@ class _ProductDetailsState extends State<ProductDetails>
 
                 return InkWell(
                   onTap: () {
-                    currentSize = productController.sizes[index]['size'];
+                    productController.currentSizeSelected.value = productController.sizes[index]['size'];
+                    productController.currentSizeIdSelected.value = productController.sizes[index]['sizeID'];
+                    print("size is = ${productController.sizes[index]['sizeID']}");
                     setState(() {
-                      print('sizes');
+
                       for (var i = 0; i < _colorSize.length; i++) {
                         if (i == index) {
                           _colorSize[i] = myHexColor3;
@@ -1018,7 +1079,7 @@ class _ProductDetailsState extends State<ProductDetails>
   Widget _buildColorsOptions(size) {
     return SizedBox(
       width: size.width,
-      height: 38,
+      height: 36,
       child: CustomScrollView(
         scrollDirection: Axis.horizontal,
         slivers: [
@@ -1030,7 +1091,9 @@ class _ProductDetailsState extends State<ProductDetails>
 
                 return InkWell(
                   onTap: () {
-                    currentColor = productController.imagesData[index].color;
+                    productController.currentColorSelected.value  = productController.imagesData[index].color;
+                    productController.currentColorIdSelected.value =productController.imagesData[index].colorId;
+                    print('current color id = ${productController.imagesData[index].colorId}');
                     print(index);
                     indexListImages = index;
                     setState(() {

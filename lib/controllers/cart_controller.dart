@@ -31,6 +31,7 @@ class CartController extends GetxController with BaseController {
   var countFromItem = 1.obs;
   var optionReasonSelected =0.obs;
   var processing =false.obs;
+  var gotOrderDetails =false.obs;
 
 
   //orders
@@ -350,6 +351,7 @@ class CartController extends GetxController with BaseController {
   }
 
   Future getOneOrder(String id) async {
+    gotOrderDetails.value = false;
     var headers = {
       'Authorization': 'Bearer ${user.accessToken}',
       'Content-Type': 'application/json'
@@ -366,6 +368,7 @@ class CartController extends GetxController with BaseController {
       var data = json['description'];
       print("order == $data");
       oneOrderDetails.value = data;
+      gotOrderDetails.value = true;
 
       print(oneOrderDetails);
     } else {

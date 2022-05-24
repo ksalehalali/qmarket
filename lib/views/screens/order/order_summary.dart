@@ -218,7 +218,8 @@ class _OrderSummaryState extends State<OrderSummary> {
 
         ),
         body: SingleChildScrollView(
-          child: Column(
+          child: cartController.gotOrderDetails.value == true ?
+          Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(
@@ -241,7 +242,7 @@ class _OrderSummaryState extends State<OrderSummary> {
                      SizedBox(
                        width: screenSize.width -110,
                        child: SelectableText(
-                         cartController.oneOrderDetails['id'],
+                         cartController.oneOrderDetails['orderNumber'],
                          maxLines: 1,
                          scrollPhysics: ScrollPhysics(),
                          style: TextStyle(
@@ -264,15 +265,15 @@ class _OrderSummaryState extends State<OrderSummary> {
                 padding: const EdgeInsets.symmetric(horizontal: 12.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children:  [
-                    const Text('SHIPPING ADDRESS ',style: TextStyle(
+                  children:   [
+                    Text('SHIPPING ADDRESS ',style: TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.w800
                     ),),
-                    const SizedBox(
+                    SizedBox(
                       height: 8.0,
                     ),
-                    Text('${addressController.myAddressData[indexAddress]['nameAddress']}',textAlign: TextAlign.start,
+                    Text('Address : \n${cartController.oneOrderDetails['address']}',textAlign: TextAlign.start,
                       style: TextStyle(
                           fontSize: 13,
                           color: Colors.grey[900],
@@ -280,23 +281,6 @@ class _OrderSummaryState extends State<OrderSummary> {
                       ),),
                     SizedBox(height: 8,),
 
-                    SizedBox(
-                      width: screenSize.width - 50,
-                      child: Text('${addressController.myAddressData[indexAddress]['address']}',textAlign: TextAlign.start,overflow: TextOverflow.ellipsis,maxLines: 1,
-                        style: TextStyle(
-                            fontSize: 13,
-                            color: Colors.grey[900],
-                            overflow: TextOverflow.ellipsis,
-                            fontWeight: FontWeight.w700
-                        ),),
-                    ),
-                    SizedBox(height: 8,),
-                    Text('${addressController.myAddressData[indexAddress]['phone']}',textAlign: TextAlign.start,
-                      style: TextStyle(
-                          fontSize: 13,
-                          color: Colors.grey[900],
-                          fontWeight: FontWeight.w700
-                      ),),
                   ],
                 ),
               ),
@@ -446,6 +430,8 @@ class _OrderSummaryState extends State<OrderSummary> {
                   child: _buildOrderProductsList())
 
             ],
+          ):Container(
+            child: const CircularProgressIndicator.adaptive(),
           ),
         ),
       ),

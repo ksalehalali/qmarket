@@ -90,7 +90,7 @@ class _MyOrdersState extends State<MyOrders> {
                                     SizedBox(
                                       width:screenSize.width *0.8-46,
                                       child: Text(
-                                        'Order ${cartController.myOrders[indexA]['result']['id']}',maxLines: 1,
+                                        'Order ${cartController.myOrders[indexA]['result']['orderNumber']}',maxLines: 1,
                                         style: TextStyle(
                                             fontSize: 12,
                                             color: Colors.grey[900],fontWeight: FontWeight.bold),

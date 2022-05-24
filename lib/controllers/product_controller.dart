@@ -40,6 +40,11 @@ class ProductsController extends GetxController with BaseController{
   var productData = {};
   var sizes = [];
   var colors = [];
+  var currentSizeSelected = ''.obs;
+  var currentColorSelected = ''.obs;
+  var currentSizeIdSelected = ''.obs;
+  var currentColorIdSelected = ''.obs;
+
   var offerFromPrice = 0.0.obs;
 
   Future getLatestProducts() async {
@@ -364,8 +369,15 @@ class ProductsController extends GetxController with BaseController{
         desc_EN:productData['desc_EN'],
 
       );
+
       sizes = productData['size'];
+      currentSizeSelected = sizes[0]['size'];
+      currentSizeIdSelected = sizes[0]['sizeID'];
+
       colors = productData['size'][0]['color'];
+      currentColorSelected =imagesData[0].color;
+      currentColorIdSelected =imagesData[0].colorId;
+
       print('colors productData ${productDetails.colorsData}');
       await addImagesData();
       createImages(2);
@@ -423,10 +435,10 @@ class ProductsController extends GetxController with BaseController{
           );
         }
       }
-      getDetailsDone.value = false;
+      getDetailsDone.value = true;
     }
-    gotProductDetails.value =false;
-    getDetailsDone.value = false;
+    gotProductDetails.value =true;
+    getDetailsDone.value = true;
     update();
   }
 
