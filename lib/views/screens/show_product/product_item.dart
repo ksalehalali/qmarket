@@ -111,8 +111,8 @@ class ProductItemCard extends StatelessWidget {
                             baseColor: Colors.grey[400]!,
                             highlightColor: Colors.grey[300]!,
                             child: Container(
-                              height: screenSize.height * 0.2 ,
-                              width: screenSize.width * 0.5 - 60,
+                              height: 220,
+                              width: size.width * 0.4 + 10,
                               decoration: BoxDecoration(
                                   color: Colors.grey,
                                   borderRadius: BorderRadius.circular(8)),

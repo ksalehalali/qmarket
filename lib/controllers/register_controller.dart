@@ -71,7 +71,7 @@ class RegisterController extends GetxController with BaseController {
         );
         throw TimeoutException('The connection has timed out, Please try again!');
       });
-
+print('login...');
       if(response.statusCode == 500) {
         Fluttertoast.showToast(
             msg: "Error 500",
@@ -90,6 +90,7 @@ class RegisterController extends GetxController with BaseController {
           user.accessToken = jsonResponse["description"]["token"];
           //hideLoading();
           Get.to(MainScreen());
+          isRegisterLoading.value =true;
         } else {
           Fluttertoast.showToast(
               msg: "Username and password do not match!",

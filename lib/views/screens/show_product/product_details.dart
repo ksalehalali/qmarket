@@ -97,8 +97,8 @@ class _ProductDetailsState extends State<ProductDetails>
       child: Stack(
         key: const Key('s2'),
         children: [
-          Obx(() =>
-                productController.getDetailsDone.value == true? Container(
+
+                productController.getDetailsDone.value == true?  Obx(() =>Container(
                   color: myHexColor,
 
                   child: SafeArea(
@@ -914,8 +914,8 @@ class _ProductDetailsState extends State<ProductDetails>
                           : Container(),
                     ),
                   ),
-                ):_buildShimmerLoadingData(),
-          ),
+                )
+          ):_buildShimmerLoadingData(),
 
           Container(
             margin: EdgeInsets.only(top: screenSize.height *0.1 -54),
@@ -1009,6 +1009,84 @@ class _ProductDetailsState extends State<ProductDetails>
             ),
           ),
         ),
+        SizedBox(height: 60,),
+
+        Row(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 0.0,horizontal: 12),
+              child: Shimmer.fromColors(
+                baseColor: Colors.grey[400]!,
+                highlightColor: Colors.grey[300]!,
+                child: Container(
+                  height: screenSize.height * 0.1-30,
+                  width: screenSize.width *0.2,
+                  decoration: BoxDecoration(
+                      color: Colors.grey,
+                      borderRadius: BorderRadius.circular(2)),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 0.0,horizontal: 12),
+              child: Shimmer.fromColors(
+                baseColor: Colors.grey[400]!,
+                highlightColor: Colors.grey[300]!,
+                child: Container(
+                  height: screenSize.height * 0.1-30,
+                  width: screenSize.width *0.2,
+                  decoration: BoxDecoration(
+                      color: Colors.grey,
+                      borderRadius: BorderRadius.circular(2)),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 0.0,horizontal: 12),
+              child: Shimmer.fromColors(
+                baseColor: Colors.grey[400]!,
+                highlightColor: Colors.grey[300]!,
+                child: Container(
+                  height: screenSize.height * 0.1-30,
+                  width: screenSize.width *0.2,
+                  decoration: BoxDecoration(
+                      color: Colors.grey,
+                      borderRadius: BorderRadius.circular(2)),
+                ),
+              ),
+            ),
+          ],
+        ),
+        SizedBox(height: 60,),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 0.0,horizontal: 12),
+          child: Shimmer.fromColors(
+            baseColor: Colors.grey[200]!,
+            highlightColor: Colors.grey[100]!,
+            child: Container(
+              height: screenSize.height * 0.1-70,
+              width: screenSize.width,
+              decoration: BoxDecoration(
+                  color: Colors.grey,
+                  borderRadius: BorderRadius.circular(2)),
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 4.0,horizontal: 12),
+          child: Shimmer.fromColors(
+            baseColor: Colors.grey[200]!,
+            highlightColor: Colors.grey[100]!,
+            child: Container(
+              height: screenSize.height * 0.1-70,
+              width: screenSize.width,
+              decoration: BoxDecoration(
+                  color: Colors.red[50],
+                  borderRadius: BorderRadius.circular(2)),
+            ),
+          ),
+        ),
+
       ],
     );
   }

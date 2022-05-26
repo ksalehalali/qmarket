@@ -96,7 +96,6 @@ class ProductsController extends GetxController with BaseController{
     cartProducts.value = [];
     opacity.value = 0.0;
     gotProductsByCat.value = false;
-    getDetailsDone.value = false;
     var headers = {
       'Authorization': 'bearer ${user.accessToken}',
       'Content-Type': 'application/json'
@@ -149,7 +148,7 @@ class ProductsController extends GetxController with BaseController{
     cartProducts.value = [];
     opacity.value = 0.0;
     gotProductsByCat.value = false;
-    getDetailsDone.value = false;
+
     var headers = {
       'Authorization': 'bearer ${user.accessToken}',
       'Content-Type': 'application/json'
@@ -302,7 +301,9 @@ class ProductsController extends GetxController with BaseController{
 
   Future getOneProductDetails(String id) async {
    gotProductDetails.value =false;
-    print('get prod id :: $id');
+   getDetailsDone.value = false;
+
+   print('get prod id :: $id');
     var headers = {
       'Authorization': 'bearer ${user.accessToken}',
       'Content-Type': 'application/json'
@@ -371,12 +372,12 @@ class ProductsController extends GetxController with BaseController{
       );
 
       sizes = productData['size'];
-      currentSizeSelected = sizes[0]['size'];
-      currentSizeIdSelected = sizes[0]['sizeID'];
+      currentSizeSelected.value = sizes[0]['size'];
+      currentSizeIdSelected.value= sizes[0]['sizeID'];
 
       colors = productData['size'][0]['color'];
-      currentColorSelected =imagesData[0].color;
-      currentColorIdSelected =imagesData[0].colorId;
+      currentColorSelected.value =imagesData[0].color;
+      currentColorIdSelected.value =imagesData[0].colorId;
 
       print('colors productData ${productDetails.colorsData}');
       await addImagesData();
@@ -439,6 +440,7 @@ class ProductsController extends GetxController with BaseController{
     }
     gotProductDetails.value =true;
     getDetailsDone.value = true;
+    print('got product == $gotProductDetails');
     update();
   }
 
