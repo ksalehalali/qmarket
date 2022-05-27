@@ -4,6 +4,8 @@ import 'package:get_storage/get_storage.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart' as loc;
 import 'package:geolocator/geolocator.dart' as geo;
+import 'package:lottie/lottie.dart';
+import 'package:qmarket/controllers/payment_controller.dart';
 
 import 'package:qmarket/services/localization/localization.dart';
 import 'Assistants/globals.dart';
@@ -27,6 +29,7 @@ void main() async {
   final cartController =
       Get.putAsync(() async => CartController(), permanent: true);
   final langController =Get.putAsync(() async => LangController(),permanent: true);
+  final paymentController =Get.putAsync(() async => PaymentController(),permanent: true);
 
   runApp( GetMaterialApp(
     locale: Locale('en'),
@@ -87,12 +90,16 @@ class _MyAppState extends State<MyApp> {
       color: Colors.white,
       child: FittedBox(
         child: SizedBox(
-            height: 22,
-            width: 22,
-            child: CircularProgressIndicator.adaptive(
-              backgroundColor: myHexColor,
-              strokeWidth: 2,
-            )),
+          width: 80,
+          height: 80,
+
+          child: Lottie.asset(
+            'assets/animations/loading_black_background_editor.json',
+            width: 80,
+            height: 80,
+
+          ),
+        )
       ),
     );
   }

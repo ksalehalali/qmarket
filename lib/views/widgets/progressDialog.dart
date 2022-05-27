@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 
 class ProgressDialog extends StatelessWidget {
   String? message;
@@ -123,9 +124,10 @@ class DialogHelper {
   //show snack bar
   //show loading
   static void showLoading([String? message]) {
+
     Get.dialog(
       Dialog(
-        elevation: 1.0,
+        elevation: 0.0,
         backgroundColor: Colors.transparent.withOpacity(0.0),
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -134,8 +136,17 @@ class DialogHelper {
             children: [
               SizedBox(height: 8),
              // Text(message ?? 'Loading...'),
-              Image.asset('assets/animations/98432-loading.gif',height: 140,width: 140,)
-            ],
+              SizedBox(
+                width: 80,
+                height: 80,
+
+                child: Lottie.asset(
+                  'assets/animations/loading_black_background_editor.json',
+                  width: 80,
+                  height: 80,
+
+                ),
+              )         ],
           ),
         ),
       ),

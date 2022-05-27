@@ -376,8 +376,7 @@ class ProductsController extends GetxController with BaseController{
       currentSizeIdSelected.value= sizes[0]['sizeID'];
 
       colors = productData['size'][0]['color'];
-      currentColorSelected.value =imagesData[0].color;
-      currentColorIdSelected.value =imagesData[0].colorId;
+
 
       print('colors productData ${productDetails.colorsData}');
       await addImagesData();
@@ -484,6 +483,8 @@ class ProductsController extends GetxController with BaseController{
       print("$i ${productDetails.colorsData![i]['image4']}");
       //print(imagesData[i].imagesUrls);
     }
+    currentColorSelected.value =imagesData[0].color;
+    currentColorIdSelected.value =imagesData[0].colorId;
     update();
   }
 

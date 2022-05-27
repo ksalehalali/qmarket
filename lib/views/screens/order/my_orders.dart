@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:lottie/lottie.dart';
 import '../../../Assistants/globals.dart';
 import '../../../controllers/cart_controller.dart';
 import 'order_summary.dart';
@@ -40,7 +41,17 @@ class _MyOrdersState extends State<MyOrders> {
              cartController.gotMyOrders.value ==true ? SizedBox(
                   height: screenSize.height -100,
 
-                  child: buildOrdersList()):Container(child: Center(child: Text('No orders',style: TextStyle(fontSize: 22,color: Colors.grey[700]),)
+                  child: buildOrdersList()):Container(child: Center(child: SizedBox(
+               width: 80,
+               height: 80,
+
+               child: Lottie.asset(
+                 'assets/animations/loading_black_background_editor.json',
+                 width: 80,
+                 height: 80,
+
+               ),
+             )
                ,),),
            
             ],

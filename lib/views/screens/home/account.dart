@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:qmarket/controllers/payment_controller.dart';
+import 'package:qmarket/views/screens/wallet/wallet_screen.dart';
 
 import '../../../Assistants/globals.dart';
 import '../../../controllers/account_controller.dart';
@@ -16,12 +18,25 @@ import '../../favorite_screen.dart';
 import '../auth/register.dart';
 import '../order/my_orders.dart';
 
-class Account extends StatelessWidget {
+class Account extends StatefulWidget {
   Account({Key? key}) : super(key: key);
 
+  @override
+  State<Account> createState() => _AccountState();
+}
+
+class _AccountState extends State<Account> {
   final accountController = Get.put(AccountController());
+
   final CartController cartController = Get.find();
 
+  final PaymentController paymentController = Get.find();
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    paymentController.getMyWallet();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -128,19 +143,25 @@ class Account extends StatelessWidget {
               Column(
                 children: [
                   // MY ACCOUNT
-                  Container(
-                    height: 60,
-                    color: Color.fromRGBO(245, 246, 248, 1.0),
-                    padding: EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Align(
-                      alignment: Alignment.centerLeft, // Align however you like (i.e .centerRight, centerLeft)
-                      child: Text(
-                        "My Account",
-                        textAlign: TextAlign.start,
-                        style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.black54,
-                            fontWeight: FontWeight.bold
+                  InkWell(
+                    onTap: (){
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context)=>WalletScreen()));
+
+                    },
+                    child: Container(
+                      height: 60,
+                      color: Color.fromRGBO(245, 246, 248, 1.0),
+                      padding: EdgeInsets.symmetric(horizontal: 16.0),
+                      child: Align(
+                        alignment: Alignment.centerLeft, // Align however you like (i.e .centerRight, centerLeft)
+                        child: Text(
+                          "My Account",
+                          textAlign: TextAlign.start,
+                          style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.black54,
+                              fontWeight: FontWeight.bold
+                          ),
                         ),
                       ),
                     ),
@@ -311,5 +332,4 @@ class Account extends StatelessWidget {
       ),
     );
   }
-
 }

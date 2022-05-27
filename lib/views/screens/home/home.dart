@@ -70,7 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final screenSize = Get.size;
 
     return Container(
-        color: myHexColor5,
+        color: myHexColor5.withOpacity(0.1),
         child: SafeArea(
             child: Scaffold(
                 body: Stack(children: [
