@@ -186,7 +186,7 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                         },
                         selectorConfig: const SelectorConfig(
                           selectorType: PhoneInputSelectorType.DIALOG,
-                          showFlags: true,
+                          showFlags: false,
                           useEmoji: false,
                           setSelectorButtonAsPrefixIcon: true,
                           leadingPadding: 0.0,

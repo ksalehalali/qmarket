@@ -84,6 +84,7 @@ class ProductsController extends GetxController with BaseController{
         ));
       }
       print('latest products count :: ${latestProducts.length}');
+      update();
     } else {
       print(response.reasonPhrase);
     }
@@ -213,6 +214,7 @@ class ProductsController extends GetxController with BaseController{
             desc_EN:data[i]['desc_EN'],
           ));
         }
+        update();
         print(' products count :: ${recommendedProducts.length}');
       } else if (cat == 'offers') {
         offersProducts.value = [];
@@ -529,6 +531,7 @@ class ProductsController extends GetxController with BaseController{
       var data = json['description'];
       if (json['status'] == true) {
         favProducts.value = data;
+        update();
       }
     } else {
       print(response.reasonPhrase);

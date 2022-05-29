@@ -70,7 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final screenSize = Get.size;
 
     return Container(
-        color: myHexColor5.withOpacity(0.1),
+        color: myHexColor5.withOpacity(0.2),
         child: SafeArea(
             child: Scaffold(
                 body: Stack(children: [
@@ -124,8 +124,8 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Container(
               padding: EdgeInsets.zero,
               margin: EdgeInsets.zero,
-              height: screenSize.height > 800
-                  ? screenSize.height - screenSize.height * 0.2 - 96
+              height: screenSize.height > 810
+                  ? screenSize.height - screenSize.height * 0.2 - 76
                   : screenSize.height - screenSize.height * 0.2 - 50,
               width: screenSize.width,
               child: Obx(()=>ListView(

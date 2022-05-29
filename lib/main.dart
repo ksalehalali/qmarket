@@ -55,6 +55,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     // TODO: implement initState
     super.initState();
+
     locatePosition();
     startUpController.fetchUserLoginPreference();
   }
@@ -84,6 +85,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    print("screen size :: $screenSize");
     return Container(
       padding: EdgeInsets.all(140),
       margin: EdgeInsets.zero,

@@ -31,6 +31,7 @@ class CategoriesController extends GetxController {
       for (int i = 0; i < data.length; i++) {
         departments.add(data[i]);
       }
+      update();
       print('cat length :: ${departments.length}');
     } else {
       print(response.reasonPhrase);

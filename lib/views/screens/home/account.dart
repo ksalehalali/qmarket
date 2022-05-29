@@ -15,6 +15,7 @@ import '../../../controllers/cart_controller.dart';
 import '../../../controllers/register_controller.dart';
 import '../../address/list_addresses.dart';
 import '../../favorite_screen.dart';
+import '../../widgets/new_button.dart';
 import '../auth/register.dart';
 import '../order/my_orders.dart';
 
@@ -27,11 +28,13 @@ class Account extends StatefulWidget {
 
 class _AccountState extends State<Account> {
   final accountController = Get.put(AccountController());
-
   final CartController cartController = Get.find();
-
   final PaymentController paymentController = Get.find();
-@override
+  bool btnPressed =false;
+  bool btnPressed2 =false;
+  bool btnPressed3 =false;
+
+  @override
   void initState() {
     // TODO: implement initState
     super.initState();
@@ -40,6 +43,7 @@ class _AccountState extends State<Account> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[200],
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -121,16 +125,16 @@ class _AccountState extends State<Account> {
                     Text(
                       "Welcome.",
                       style: TextStyle(
-                        fontSize: 14,
+                        fontSize: 13,
                         fontWeight: FontWeight.bold,
                         color: Color.fromRGBO(56, 216, 218, 1.0),
                       ),
                     ),
                     SizedBox(height: 8.0),
                     Text(
-                      "${accountController.username.value}",
+                      accountController.username.value,
                       style: TextStyle(
-                          fontSize: 16,
+                          fontSize: 15,
                           fontWeight: FontWeight.bold,
                           color: Colors.black54
                       ),
@@ -139,6 +143,92 @@ class _AccountState extends State<Account> {
                   ],
                 ),
               ),
+              SizedBox(height: 8,),
+
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 38.0),
+                child: NeuButton(onTap: (){
+                  setState(() {
+                    if(btnPressed == true){
+                      btnPressed = false;
+                    }else if(btnPressed == false){
+                      btnPressed =true;
+                      btnPressed2 =false;
+                      btnPressed3 =false;
+
+                    }
+                  });
+                  Future.delayed(200.milliseconds,(){
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context)=>MyOrders()));
+                    setState(() {
+                      if(btnPressed == true){
+                        btnPressed = false;
+                      }else if(btnPressed == false){
+                        btnPressed =true;
+                        btnPressed2 =false;
+                        btnPressed3 =false;
+
+                      }
+                    });
+                  });
+
+
+                },onTap2: (){
+                  setState(() {
+                    if(btnPressed2 == true){
+                      btnPressed2 = false;
+                    }else if(btnPressed2 == false){
+                      btnPressed2 =true;
+                      btnPressed =false;
+                      btnPressed3 =false;
+
+                    }
+                  });
+                  Future.delayed(200.milliseconds,(){
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context)=>WalletScreen()));
+                    setState(() {
+                      if(btnPressed2 == true){
+                        btnPressed2 = false;
+                      }else if(btnPressed2 == false){
+                        btnPressed2 =true;
+                        btnPressed =false;
+                        btnPressed3 =false;
+
+                      }
+                    });
+                  });
+
+
+                }
+                ,onTap3: (){
+                    setState(() {
+                      if(btnPressed3 == true){
+                        btnPressed3 = false;
+                      }else if(btnPressed3 == false){
+                        btnPressed3 =true;
+                        btnPressed2 =false;
+                        btnPressed =false;
+
+                      }
+                    });
+                    Future.delayed(200.milliseconds,(){
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context)=>FavoriteScreen()));
+                      setState(() {
+                        if(btnPressed3 == true){
+                          btnPressed3 = false;
+                        }else if(btnPressed3 == false){
+                          btnPressed3 =true;
+                          btnPressed2 =false;
+                          btnPressed =false;
+
+                        }
+                      });
+                    });
+
+
+                  },btnPressed: btnPressed,btnPressed2: btnPressed2,btnPressed3: btnPressed3,),
+              ),
+              SizedBox(height: 14,),
               accountController.isLoggedIn.value != false ?
               Column(
                 children: [
@@ -166,17 +256,7 @@ class _AccountState extends State<Account> {
                       ),
                     ),
                   ),
-                  InkWell(
-                      onTap: (){
-                        Navigator.of(context).push(MaterialPageRoute(builder: (context)=>FavoriteScreen()));
-                      },
-                      child: buildOptionRow("Favorite List", Icons.favorite_border)),
-                  Container(
-                    margin: EdgeInsets.symmetric(horizontal: 64.0),
-                    child: Divider(
-                      thickness: 1,
-                    ),
-                  ),
+
                   buildOptionRow("Personal File", Icons.account_circle_outlined),
                   Container(
                     margin: EdgeInsets.symmetric(horizontal: 64.0),
@@ -184,18 +264,7 @@ class _AccountState extends State<Account> {
                       thickness: 1,
                     ),
                   ),
-                  InkWell(
-                      onTap: (){
 
-                        Navigator.of(context).push(MaterialPageRoute(builder: (context)=>MyOrders()));
-                      },
-                      child: buildOptionRow("My Orders", Icons.shopping_bag_outlined)),
-                  Container(
-                    margin: EdgeInsets.symmetric(horizontal: 64.0),
-                    child: Divider(
-                      thickness: 1,
-                    ),
-                  ),
                   InkWell(
                       onTap: (){
 

@@ -50,7 +50,7 @@ class _CartState extends State<Cart> {
             child: Obx(()=>Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  if (!cartController.isCartEmpty.value)
+                  if (cartController.isCartEmpty.value)
                     Container(
                       width: MediaQuery.of(context).size.width,
                       child: Column(

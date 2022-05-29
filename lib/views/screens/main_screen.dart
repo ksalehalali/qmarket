@@ -49,6 +49,7 @@ class _MainScreenState extends State<MainScreen> {
         'a7c777ed-cb81-46f3-bd6b-7667842d7819', 'offers');
     addressController.getMyAddresses();
     productController.getMyFav();
+    cartController.getMyOrders();
   }
 
   @override

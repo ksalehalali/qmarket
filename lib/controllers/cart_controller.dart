@@ -11,7 +11,7 @@ import '../views/widgets/flash_messages_screen.dart';
 import 'base_controller.dart';
 
 class CartController extends GetxController with BaseController {
-  var isCartEmpty = true.obs;
+  var isCartEmpty = false.obs;
   var gotMyCart = false.obs;
   var itemsInserted = false.obs;
   var gotMyOrders = false.obs;
@@ -213,8 +213,15 @@ class CartController extends GetxController with BaseController {
         myPrCartProducts.value = json['description'];
         cartProducts = json['description'];
         gotMyCart.value = true;
+
         print('cart items = ${myPrCartProducts.length}');
-        if(cartProducts.length >0){calculateFulPriceProducts(0);}else{fullPrice.value =0.0;}
+        if(cartProducts.length >0){
+          calculateFulPriceProducts(0);
+          isCartEmpty.value =false;
+        }else{
+          fullPrice.value =0.0;
+          isCartEmpty.value =true;
+        }
         if (fromAdd) {
         } else {
           hideLoading();
@@ -339,6 +346,7 @@ class CartController extends GetxController with BaseController {
         myOrders.value = data;
         print(myOrdersDetails.length);
         gotMyOrders.value = true;
+        update();
       }
       // for(int i =0; i<myOrders.length; i++){
       //   await getOneOrder(myOrders[i]['id']);

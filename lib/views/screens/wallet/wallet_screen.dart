@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:lottie/lottie.dart';
 import 'package:qmarket/Assistants/globals.dart';
 
 import '../../../controllers/payment_controller.dart';
@@ -17,8 +18,8 @@ class _WalletScreenState extends State<WalletScreen> {
   var wallet;
   Color? _color = myHexColor5;
   Color? _color2 = Colors.grey[700];
-  bool showPayments =true;
-  bool showRecharges = false;
+  bool showCredits =true;
+  bool showTransfers = false;
 @override
   void initState() {
     // TODO: implement initState
@@ -79,8 +80,8 @@ class _WalletScreenState extends State<WalletScreen> {
                                 setState(() {
                                   _color = myHexColor5;
                                   _color2 = Colors.grey[700];
-                                  showPayments =true;
-                                  showRecharges =false;
+                                  showCredits =true;
+                                  showTransfers =false;
 
                                 });
                               },
@@ -90,7 +91,7 @@ class _WalletScreenState extends State<WalletScreen> {
                                 children: [
                                   AnimatedContainer(duration: 11.seconds,
                                       curve: Curves.easeIn,
-                                      child: Text('payments_txt'.tr,style: TextStyle(color: _color,fontWeight: FontWeight.w600))),
+                                      child: Text('Credits',style: TextStyle(color: _color,fontWeight: FontWeight.w600))),
                                   SizedBox(height: 10.0,),
                                   AnimatedContainer(
                                     curve: Curves.easeInOut,
@@ -108,8 +109,8 @@ class _WalletScreenState extends State<WalletScreen> {
                                 setState(() {
                                   _color2 = myHexColor5;
                                   _color = Colors.grey[700];
-                                  showPayments =false;
-                                  showRecharges =true;
+                                  showCredits =false;
+                                  showTransfers =true;
                                 });
                               },
                               child: Column(
@@ -120,7 +121,7 @@ class _WalletScreenState extends State<WalletScreen> {
                                       curve: Curves.easeIn,
                                       duration: 14.seconds,
 
-                                      child: Text('recharges_txt'.tr,style: TextStyle(color: _color2,fontWeight: FontWeight.w600),)),
+                                      child: Text('Transfers',style: TextStyle(color: _color2,fontWeight: FontWeight.w600),)),
                                   SizedBox(height: 10.0,),
                                   AnimatedContainer(
                                     curve: Curves.easeInOut,
@@ -139,8 +140,18 @@ class _WalletScreenState extends State<WalletScreen> {
                         SizedBox(
                           height: screenSize.height * 0.1 - 62,
                         ),
-                        Obx(()=> (paymentController.gotMyCredits.value ==false)?Center(child: Image.asset('assets/animation/Logo animated-loop-fast.gif',fit: BoxFit.fill,color: myHexColor5,),):Container()),
-                        showPayments?SizedBox(
+                        Obx(()=> (paymentController.gotMyCredits.value ==false)?Center(child:  SizedBox(
+                          width: 80,
+                          height: 80,
+
+                          child: Lottie.asset(
+                            'assets/animations/loading_black_background_editor.json',
+                            width: 80,
+                            height: 80,
+
+                          ),
+                        ),):Container()),
+                        showCredits?SizedBox(
                             height: screenSize.height-200,
                             child: Padding(
                               padding: const EdgeInsets.only(bottom: 122.0),
@@ -150,9 +161,9 @@ class _WalletScreenState extends State<WalletScreen> {
                                     return Column(
                                       children: [
                                         ListTile(
-                                          title: Text('route ',style: TextStyle(color: Colors.black),),
+                                          title: Text('${paymentController.credits.value[index]['paymentGateway']} ',style: TextStyle(color: Colors.black),),
                                           subtitle:  Text(DateFormat('yyyy-MM-dd  HH:mm :ss').format(DateTime.parse(paymentController.credits[index]['charging_Date'])),style: TextStyle(height: 2),),
-                                          trailing:  Text(paymentController.credits.value[index]['value'].toStringAsFixed(3),style: TextStyle(color:Colors.red,fontWeight: FontWeight.w600),),
+                                          trailing:  Text(paymentController.credits.value[index]['value'].toStringAsFixed(3),style: TextStyle(color:Colors.green[800],fontWeight: FontWeight.w600),),
                                           onTap: (){
                                             //showDialog(context: context, builder: (context)=>CustomDialog(payment:  walletController.payments[index],fromPaymentLists: false,failedPay: false,));
                                           },
@@ -168,7 +179,7 @@ class _WalletScreenState extends State<WalletScreen> {
 
                         ):Container(),
 
-                        showRecharges?SizedBox(
+                        showTransfers?SizedBox(
                             height: screenSize.height-200,
                             child: Padding(
                               padding: const EdgeInsets.only(bottom: 122.0),
@@ -182,14 +193,14 @@ class _WalletScreenState extends State<WalletScreen> {
                                       children: [
                                         ListTile(
                                           //leading: Icon(Icons.payments_outlined),
-                                          title: Text(paymentController.credits[index]['paymentGateway'].toString(),style: TextStyle(color: Colors.black),),
-                                          subtitle:  Text(DateFormat('yyyy-MM-dd  HH:mm :ss').format(DateTime.parse(paymentController.credits[index]['charging_Date'])),style: TextStyle(height: 2),),
-                                          trailing:  Text(paymentController.credits[index]['value'].toStringAsFixed(3),style: TextStyle(color:myHexColor5,fontWeight: FontWeight.w600),),
+                                          title: Text(paymentController.transfers[index]['paymentGateway'].toString(),style: TextStyle(color: Colors.black),),
+                                          subtitle:  Text(DateFormat('yyyy-MM-dd  HH:mm :ss').format(DateTime.parse(paymentController.transfers[index]['charging_Date'])),style: TextStyle(height: 2),),
+                                          trailing:  Text(paymentController.transfers[index]['value'].toStringAsFixed(3),style: TextStyle(color:myHexColor5,fontWeight: FontWeight.w600),),
                                         ),
                                         Divider(thickness: 1,height: 10,)
                                       ],
                                     );
-                                  },childCount:paymentController.credits.length ),),
+                                  },childCount:paymentController.transfers.length ),),
                                   )
                                 ],
                               ),

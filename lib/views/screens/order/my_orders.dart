@@ -22,45 +22,46 @@ class _MyOrdersState extends State<MyOrders> {
     super.initState();
     cartController.getMyOrders();
   }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return  Obx(
+          () =>Container(
       color: myHexColor,
-      child: SafeArea(child: Scaffold(
-        appBar: AppBar(
-          elevation: 0.0,
-          backgroundColor: Colors.transparent,
-          foregroundColor: Colors.black87,
-
-        ),
-      body: SingleChildScrollView(
-        child: Obx(()=>Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // cartController.gotMyOrders.value ==true ?cartController.buildOrderItem():Container(),
-             cartController.gotMyOrders.value ==true ? SizedBox(
-                  height: screenSize.height -100,
-
-                  child: buildOrdersList()):Container(child: Center(child: SizedBox(
-               width: 80,
-               height: 80,
-
-               child: Lottie.asset(
-                 'assets/animations/loading_black_background_editor.json',
-                 width: 80,
-                 height: 80,
-
-               ),
-             )
-               ,),),
-           
-            ],
+      child: SafeArea(
+        child: Scaffold(
+          appBar: AppBar(
+            elevation: 0.0,
+            backgroundColor: Colors.transparent,
+            foregroundColor: Colors.black87,
+          ),
+          body: SingleChildScrollView(
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // cartController.gotMyOrders.value ==true ?cartController.buildOrderItem():Container(),
+                  cartController.gotMyOrders.value == true
+                      ? SizedBox(
+                          height: screenSize.height - 100,
+                          child: buildOrdersList())
+                      : Container(
+                          child: Center(
+                            child: SizedBox(
+                              width: 80,
+                              height: 80,
+                              child: Lottie.asset(
+                                'assets/animations/loading_black_background_editor.json',
+                                width: 80,
+                                height: 80,
+                              ),
+                            ),
+                          ),
+                        ),
+                ],
+              ),
+            ),
           ),
         ),
-
-
-      ),
-      ),
       ),
     );
   }
@@ -71,10 +72,9 @@ class _MyOrdersState extends State<MyOrders> {
       scrollDirection: Axis.vertical,
       slivers: [
         Obx(
-              () => SliverList(
+          () => SliverList(
             delegate: SliverChildBuilderDelegate(
-                  (context, indexA) {
-
+              (context, indexA) {
                 return Padding(
                   padding: const EdgeInsets.all(5.0),
                   child: Container(
@@ -87,69 +87,75 @@ class _MyOrdersState extends State<MyOrders> {
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(0.0),
-                      child: Column(
-                        children: [
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 6.0, vertical: 12),                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    SizedBox(
-                                      width:screenSize.width *0.8-46,
-                                      child: Text(
-                                        'Order ${cartController.myOrders[indexA]['result']['orderNumber']}',maxLines: 1,
-                                        style: TextStyle(
-                                            fontSize: 12,
-                                            color: Colors.grey[900],fontWeight: FontWeight.bold),
-                                      ),
-                                    ),
-                                    SizedBox(height: 3,),
-                                    Text(
-                                      'Placed On  ${DateFormat('yyyy-MM-dd  HH:mm :ss').format(DateTime.parse(cartController.myOrders[indexA]['result']['orderDate']))}',
+                      child: Column(children: [
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 6.0, vertical: 12),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(
+                                    width: screenSize.width * 0.8 - 46,
+                                    child: Text(
+                                      'Order ${cartController.myOrders[indexA]['result']['orderNumber']}',
+                                      maxLines: 1,
                                       style: TextStyle(
-                                          fontSize: 11,
-                                          color: Colors.grey[700]),
+                                          fontSize: 12,
+                                          color: Colors.grey[900],
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 3,
+                                  ),
+                                  Text(
+                                    'Placed On  ${DateFormat('yyyy-MM-dd  HH:mm :ss').format(DateTime.parse(cartController.myOrders[indexA]['result']['orderDate']))}',
+                                    style: TextStyle(
+                                        fontSize: 11, color: Colors.grey[700]),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Spacer(),
+                            InkWell(
+                              onTap: () async {
+                                await cartController.getOneOrder(cartController
+                                    .myOrders[indexA]['result']['id']);
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => OrderSummary(
+                                          fromOrdersList: true,
+                                        )));
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 6.0, vertical: 12),
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      'View Details',
+                                      style: TextStyle(
+                                          fontSize: 13,
+                                          color: Colors.blue[700],
+                                          fontWeight: FontWeight.w500),
                                     ),
                                   ],
                                 ),
                               ),
-                              Spacer(),
-                              InkWell(
-                                onTap: () async{
-                                  await cartController.getOneOrder(cartController.myOrders[indexA]['result']['id']);
-                                  Navigator.of(context).push(MaterialPageRoute(builder: (context)=> OrderSummary(fromOrdersList: true,)));
-                                },
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 6.0, vertical: 12),
-                                  child: Row(
-                                    children: [
-                                      Text(
-                                        'View Details',
-                                        style: TextStyle(
-                                            fontSize: 13,
-                                            color: Colors.blue[700],fontWeight: FontWeight.w500),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-
-                            ],
-                          ),
-                          Divider(
-                            thickness: 0.7,
-                            height: 10,
-                          ),
-
-                          SizedBox(
-                              height: screenSize.height *0.2,
-                              width: screenSize.width,
-                              child: _buildOrderProductsList(indexA))
+                            ),
+                          ],
+                        ),
+                        Divider(
+                          thickness: 0.7,
+                          height: 10,
+                        ),
+                        SizedBox(
+                            height: screenSize.height * 0.2,
+                            width: screenSize.width,
+                            child: _buildOrderProductsList(indexA))
                       ]),
                     ),
                   ),
@@ -160,8 +166,6 @@ class _MyOrdersState extends State<MyOrders> {
             ),
           ),
         ),
-
-
       ],
     );
   }
@@ -169,21 +173,20 @@ class _MyOrdersState extends State<MyOrders> {
   Widget _buildOrderProductsList(int indexA) {
     return CustomScrollView(
       key: const Key('b'),
-
       scrollDirection: Axis.horizontal,
       slivers: [
         Obx(
-              () => SliverList(
+          () => SliverList(
             delegate: SliverChildBuilderDelegate(
-                  (context, index) {
-                    var price = cartController.myOrders[indexA]['result']['prduct'][index]["price"] *
-                        cartController.myOrders[indexA]['result']['prduct'][index]["offer"] /
-                        100;
+              (context, index) {
+                var price = cartController.myOrders[indexA]['result']['prduct']
+                        [index]["price"] *
+                    cartController.myOrders[indexA]['result']['prduct'][index]
+                        ["offer"] /
+                    100;
                 return InkWell(
-                  onTap: () {
-
-                  },
-                  child:  Column(
+                  onTap: () {},
+                  child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(
@@ -193,7 +196,6 @@ class _MyOrdersState extends State<MyOrders> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-
                           ///to do
                           Padding(
                             padding: const EdgeInsets.only(left: 4.0),
@@ -212,11 +214,11 @@ class _MyOrdersState extends State<MyOrders> {
                           Padding(
                             padding: const EdgeInsets.only(left: 8.0),
                             child: Container(
-                              height: screenSize.height *0.1+30,
-
+                              height: screenSize.height * 0.1 + 30,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
                                 children: [
                                   Text(
                                     "${cartController.myOrders[indexA]['result']['prduct'][index]['product']}",
@@ -225,7 +227,6 @@ class _MyOrdersState extends State<MyOrders> {
                                         fontWeight: FontWeight.bold,
                                         fontSize: 14),
                                   ),
-
                                   const SizedBox(
                                     height: 8,
                                   ),
@@ -234,13 +235,16 @@ class _MyOrdersState extends State<MyOrders> {
                                     child: Row(
                                       children: [
                                         Text(
-                                          "${cartController.myOrders[indexA]['result']['prduct'][index]["price"]} QAR".toUpperCase(),
+                                          "${cartController.myOrders[indexA]['result']['prduct'][index]["price"]} QAR"
+                                              .toUpperCase(),
                                           overflow: TextOverflow.ellipsis,
                                           maxLines: 1,
                                           textAlign: TextAlign.left,
                                           style: const TextStyle(
-                                              decoration: TextDecoration.lineThrough,
-                                              fontFamily: 'Montserrat-Arabic Regular',
+                                              decoration:
+                                                  TextDecoration.lineThrough,
+                                              fontFamily:
+                                                  'Montserrat-Arabic Regular',
                                               color: Colors.grey,
                                               fontSize: 13),
                                         ),
@@ -253,7 +257,8 @@ class _MyOrdersState extends State<MyOrders> {
                                           maxLines: 1,
                                           textAlign: TextAlign.left,
                                           style: TextStyle(
-                                              fontFamily: 'Montserrat-Arabic Regular',
+                                              fontFamily:
+                                                  'Montserrat-Arabic Regular',
                                               color: myHexColor3,
                                               fontSize: 13),
                                         ),
@@ -262,9 +267,10 @@ class _MyOrdersState extends State<MyOrders> {
                                   ),
                                   Text(
                                     "${cartController.myOrders[indexA]['result']['prduct'][index]["price"] - price} QAR",
-                                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                                    style: const TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold),
                                   ),
-
                                   const SizedBox(
                                     height: 12,
                                   ),
@@ -272,18 +278,14 @@ class _MyOrdersState extends State<MyOrders> {
                               ),
                             ),
                           ),
-
                         ],
                       ),
-
-
-
                     ],
                   ),
                 );
-
               },
-              childCount: cartController.myOrders[indexA]['result']['prduct'].length,
+              childCount:
+                  cartController.myOrders[indexA]['result']['prduct'].length,
               semanticIndexOffset: 2,
             ),
           ),
@@ -292,25 +294,21 @@ class _MyOrdersState extends State<MyOrders> {
     );
   }
 
-  Widget buildOrderItems(int indexA){
+  Widget buildOrderItems(int indexA) {
     print(indexA);
-    return  SizedBox(
+    return SizedBox(
       width: 100,
       height: 100,
       child: CustomScrollView(
         scrollDirection: Axis.horizontal,
         physics: ScrollPhysics(),
-
         slivers: [
           Obx(
-                () => SliverList(
+            () => SliverList(
               delegate: SliverChildBuilderDelegate(
-                    (context, index) {
-
+                (context, index) {
                   return InkWell(
-                    onTap: () {
-
-                    },
+                    onTap: () {},
                     child: Padding(
                       padding: const EdgeInsets.all(5.0),
                       child: Container(
@@ -323,21 +321,22 @@ class _MyOrdersState extends State<MyOrders> {
                         ),
                         child: Padding(
                             padding: const EdgeInsets.all(7.0),
-                            child:Obx(()=>
-                               Column(
+                            child: Obx(
+                              () => Column(
                                 children: [
-                                  Text('${cartController.myOrdersDetails[3]['listProduct'][index]['product']}'),
-                                  Text('${cartController.myOrdersDetails[3]['listProduct'][index]['color']}'),
-
+                                  Text(
+                                      '${cartController.myOrdersDetails[3]['listProduct'][index]['product']}'),
+                                  Text(
+                                      '${cartController.myOrdersDetails[3]['listProduct'][index]['color']}'),
                                 ],
                               ),
-                            )
-                        ),
+                            )),
                       ),
                     ),
                   );
                 },
-                childCount: cartController.myOrdersDetails[indexA]['listProduct'].length,
+                childCount: cartController
+                    .myOrdersDetails[indexA]['listProduct'].length,
                 semanticIndexOffset: 2,
               ),
             ),
